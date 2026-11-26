@@ -11,12 +11,12 @@
 <meta property="og:site_name" content="Casa Vanté Referral Network">
 <meta property="og:title" content="Casa Vanté Referral Network">
 <meta property="og:description" content="Refer a customer, earn 5% commission and milestone rewards. Join free.">
-<meta property="og:url" content="https://YOUR-SITE-ADDRESS/">
-<meta property="og:image" content="https://YOUR-SITE-ADDRESS/images/linkimage.jpg">
+<meta property="og:url" content="https://casavanteinteriors.github.io/referals/">
+<meta property="og:image" content="https://casavanteinteriors.github.io/referals/images/linkimage.jpg">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Casa Vanté Referral Network">
 <meta name="twitter:description" content="Refer a customer, earn 5% commission and milestone rewards. Join free.">
-<meta name="twitter:image" content="https://YOUR-SITE-ADDRESS/images/linkimage.jpg">
+<meta name="twitter:image" content="https://casavanteinteriors.github.io/referals/images/linkimage.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;600&family=Marcellus&display=swap" rel="stylesheet">
 <style>
@@ -99,7 +99,7 @@ header b a{display:flex;align-items:center;gap:.7rem}header b a span{font-size:1
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 /* ===== 1. PASTE YOUR SUPABASE DETAILS HERE (Project Settings > API) ===== */
-const SB_URL='https://dqsdlprzlszsrrgmvihw.supabase.co', SB_KEY='sb_publishable_d-wqDxt2tpgyjd81-RWqsQ_VdT2St2J';
+const SB_URL='https://jnthalpqwcazvtxkzwqt.supabase.co', SB_KEY='sb_publishable_bZ9C8bov2091mYAZlCFO8Q_pU0A9Ldo';
 const RATE=0.05; // FIXERZ commission on eligible labour and service fees
 /* ======================================================================= */
 let RECOVERY=/type=recovery/.test(location.hash);
@@ -185,7 +185,7 @@ newpw(){
   if(!user){location.hash='login';return}
   app.innerHTML=`<h2>Choose a new password</h2><form id="f">${pw('pw','New password',6)}<button>Save new password</button></form><div id="m"></div>`;
   $('#f').onsubmit=async ev=>{ev.preventDefault();const f=Object.fromEntries(new FormData(ev.target));
-    const{error}=await db.auth.updateUser({password:f.pw});
+    const{error}=await db.auth.updateUser({password:f.pw});if(!error)db.functions.invoke('notify',{body:{action:'password_changed'}});
     $('#m').innerHTML=error?bad(error.message):ok('Your password has been changed. <a href="#dashboard">Go to my dashboard</a>')};
 },
 login(){
@@ -221,8 +221,8 @@ async dashboard(){
 },
 async admin(){
   if(!isAdmin){app.innerHTML=bad('This page is for Casa Vanté administrators.');return}await banner();
-  const[{data:ps},{data:rs},{data:pay}]=await Promise.all([db.from('partners').select().order('created_at',{ascending:false}),
-    db.from('referrals').select('*,partners(name,code)').order('created_at',{ascending:false}),db.from('payments').select('*,partners(name,code)').order('created_at',{ascending:false})]);
+  const[{data:ps},{data:rs},{data:pay},{data:ad}]=await Promise.all([db.from('partners').select().order('created_at',{ascending:false}),
+    db.from('referrals').select('*,partners(name,code)').order('created_at',{ascending:false}),db.from('payments').select('*,partners(name,code)').order('created_at',{ascending:false}),db.from('admins').select().order('email')]);
   REFS=rs;const ms=await milestones(),opts=Object.entries(LBL),cnt={};rs.forEach(r=>{const k=key(r.customer_phone);cnt[k]=(cnt[k]||0)+1});
   const row=p=>{const mine=rs.filter(r=>r.partner_id===p.id),g=mine.filter(win).length,earn=mine.filter(r=>r.commission_status!=='none').reduce((a,r)=>a+Number(r.commission),0),
     paid=pay.filter(x=>x.partner_id===p.id).reduce((a,x)=>a+Number(x.amount),0),owe=earn-paid,hit=[...ms].reverse().find(m=>g>=m.needed);if(UNPAID&&owe<=0)return'';
@@ -233,7 +233,10 @@ async admin(){
   const owedAll=rs.filter(r=>r.commission_status==='approved').reduce((a,r)=>a+Number(r.commission),0),inprog=rs.filter(r=>!['completed','not_proceeding'].includes(r.status)).length;
   app.innerHTML=`<div class="admbar"><h2>Admin Dashboard</h2><p>Signed in as ${e(user.email)}</p></div>
   <div class="grid"><div class="box stat"><b>${ps.length}</b><span>Partners</span></div><div class="box stat"><b>${rs.length}</b><span>Referrals</span></div><div class="box stat"><b>${inprog}</b><span>In progress</span></div><div class="box stat"><b>${money(owedAll)}</b><span>Commission to pay</span></div></div>
-  <h3>Announcement to all partners</h3><form onsubmit="return ann(event)" style="max-width:none;grid-template-columns:1fr auto"><input id="an" value="${e(AN)}" placeholder="For example: Double rewards on FIXERZ referrals this month"><button>Post</button></form><p><small>Leave it empty and press Post to remove the banner.</small></p>
+  <h3>Admin team (up to 3)</h3><p><small>Admins can open this dashboard and get an email whenever a new partner registers.</small></p>
+  <div class="tw"><table>${(ad||[]).map(a=>`<tr><td>${e(a.email)}</td><td>${a.email===(user.email||'').toLowerCase()?'You':`<button class="sm alt" data-e="${e(a.email)}" onclick="deladm(this.dataset.e)">Remove</button>`}</td></tr>`).join('')}</table></div>
+  <form onsubmit="return addadm(event)" style="max-width:none;grid-template-columns:1fr auto;margin-top:.8rem"><input id="ae" type="email" placeholder="New admin email" required><button>Add admin</button></form>
+  <h3 style="margin-top:2rem">Announcement to all partners</h3><form onsubmit="return ann(event)" style="max-width:none;grid-template-columns:1fr auto"><input id="an" value="${e(AN)}" placeholder="For example: Double rewards on FIXERZ referrals this month"><button>Post</button></form><p><small>Leave it empty and press Post to remove the banner.</small></p>
   <label style="display:flex;gap:.5rem;align-items:center;font-weight:400;margin-top:1.5rem"><input type="checkbox" style="width:auto" ${UNPAID?'checked':''} onchange="UNPAID=this.checked;V.admin()">Show only unpaid balances</label><h3>Partners</h3><div class="tw"><table><tr><th>Partner</th><th>Status / code</th><th>Successful</th><th>Earned</th><th>Paid</th><th>Balance</th><th></th></tr>${ps.map(row).join('')}</table></div>
   <h3 style="margin-top:2rem">Referrals</h3><p><small>A referral counts once it is Completed and ticked as paid in full. Commission is ${RATE*100}% of the eligible fee (labour and service only).</small></p>
   <div class="tw"><table><tr><th>Customer</th><th>Partner</th><th>Status</th><th>Eligible fee (₦)</th><th>Paid in full</th><th>Commission</th><th>Note</th><th></th></tr>
@@ -259,6 +262,9 @@ const cp=t=>navigator.clipboard.writeText(t).then(()=>alert('Copied'));
 async function sp(id,status){await db.from('partners').update(status==='approved'?{status,reject_reason:null}:{status}).eq('id',id);V.admin()}
 async function rej(id){const r=prompt('Reason for rejecting this partner (the partner will see it):');if(r===null)return;await db.from('partners').update({status:'rejected',reject_reason:r}).eq('id',id);V.admin()}
 async function ann(ev){ev.preventDefault();await db.from('announcement').update({message:$('#an').value}).eq('id',1);V.admin();return false}
+async function addadm(ev){ev.preventDefault();const{error}=await db.from('admins').insert({email:$('#ae').value.trim().toLowerCase()});
+  if(error)alert(/at most/.test(error.message)?'You can have at most 3 admins. Remove one first.':error.message);V.admin();return false}
+async function deladm(em){if(!confirm('Remove '+em+' as an admin?'))return;const{error}=await db.from('admins').delete().eq('email',em);if(error)alert(error.message);V.admin()}
 async function rwd(id){const reward=prompt('Reward or award given (for example: Partner of the Month, Birthday gift, VIP reward)');if(!reward)return;await db.from('partner_rewards').insert({partner_id:id,reward});V.admin()}
 async function sv(id){const r=REFS.find(x=>x.id==id),status=$('#s'+id).value,fee=+$('#f'+id).value||0,paid=$('#p'+id).checked;
   const u={status,service_fee:fee,paid_in_full:paid,admin_note:$('#n'+id).value};
