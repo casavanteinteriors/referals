@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
+<script>try{document.documentElement.dataset.theme=localStorage.getItem("cvtheme")==="light"?"light":"dark"}catch(e){document.documentElement.dataset.theme="dark"}</script>
+<meta name="theme-color" content="#000000">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Casa Vanté Referral Network</title>
 <link rel="icon" href="images/logo.png">
@@ -25,15 +27,15 @@
 body{margin:0;background:var(--bg);color:var(--tx);font:16px/1.6 Figtree,system-ui,sans-serif}
 h1,h2,h3{font-family:Marcellus,Georgia,serif;font-weight:400;line-height:1.15;margin:0 0 .6em}
 h1{font-size:clamp(2rem,6vw,3.6rem);max-width:15ch}h2{font-size:1.7rem}h3{font-size:1.2rem}
-a{color:var(--ink)}
-header{background:linear-gradient(100deg,var(--ink),var(--plum));color:#fff;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:center;justify-content:space-between;padding:.9rem 1.2rem}
+a{color:var(--lnk)}
+header{background:#000;border-bottom:1px solid #222;color:#fff;display:flex;flex-wrap:wrap;gap:.5rem 1.5rem;align-items:center;justify-content:space-between;padding:.9rem 1.2rem}
 header b{font-family:Marcellus,serif;font-size:1.25rem;font-weight:400}
 nav{display:flex;flex-wrap:wrap;gap:1rem}nav a{color:#fff;text-decoration:none;padding:.2rem 0;border-bottom:2px solid transparent}
 nav a.on,nav a:hover{border-color:var(--brass)}
 main{max-width:980px;margin:0 auto;padding:2rem 1.2rem 4rem}
 .hero{padding:2.5rem 0 1.5rem}.hero p{max-width:55ch;color:var(--mut);font-size:1.1rem}
 .btn,button{background:var(--ink);color:#fff;border:0;border-radius:3px;padding:.65rem 1.1rem;font:600 .95rem Figtree,sans-serif;cursor:pointer;text-decoration:none;display:inline-block}
-button.alt{background:none;color:var(--ink);border:1px solid var(--ink)}button.sm{padding:.3rem .6rem;font-size:.8rem}
+button.alt{background:none;color:var(--lnk);border:1px solid var(--lnk)}button.sm{padding:.3rem .6rem;font-size:.8rem}
 :focus-visible{outline:3px solid var(--brass);outline-offset:2px}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;margin:1.5rem 0}
 .box{background:#fff;border:1px solid var(--line);padding:1.1rem 1.2rem}
@@ -61,7 +63,7 @@ ol.steps{padding-left:1.2rem}ol.steps li{margin-bottom:.7rem}.owed{color:#a33;fo
 .cta{margin-top:2.5rem;background:linear-gradient(120deg,var(--ink),var(--plum));color:#fff;border-radius:20px;padding:1.6rem;display:flex;flex-wrap:wrap;gap:1rem;align-items:center;justify-content:space-between}
 .cta h2{margin:0}.cta p{margin:.3rem 0 0}.cta .btn{background:var(--brass);color:var(--ink)}
 @media(max-width:720px){.hero2{grid-template-columns:1fr}}
-footer{text-align:center;color:var(--mut);padding:2rem 1rem;font-size:.85rem}
+footer{background:#000;text-align:center;color:#d8d8d4;padding:2rem 1rem;font-size:.85rem}
 .hero2{background:radial-gradient(circle at 88% 15%,rgba(242,169,59,.28),transparent 42%),radial-gradient(circle at 5% 95%,rgba(91,42,91,.14),transparent 40%);border-radius:28px 28px 28px 90px;padding:2rem 2rem 2rem 2.2rem}
 .hero2>div{animation:up .7s both}@keyframes up{from{opacity:0;transform:translateY(14px)}}
 @media(prefers-reduced-motion:reduce){.hero2>div{animation:none}}
@@ -71,12 +73,12 @@ footer{text-align:center;color:var(--mut);padding:2rem 1rem;font-size:.85rem}
 .rw b{font:3rem Marcellus,serif;display:block;line-height:1;color:var(--plum)}.rw span{font-size:.75rem;text-transform:uppercase;letter-spacing:.09em}.rw p{font-weight:600;margin:.8rem 0 0}
 .r0{background:#F7D9A0}.r1{background:#F3C0B3}.r2{background:var(--mint)}.r3{background:#D9C2DA}
 header b::before{content:'';display:inline-block;width:.9rem;height:1.1rem;background:var(--brass);border-radius:.5rem .5rem 0 0;margin-right:.55rem;vertical-align:-.1em}
-footer nav{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem}footer nav a{color:var(--ink);font-weight:600}
+footer nav{display:flex;gap:1.2rem;justify-content:center;flex-wrap:wrap;margin-bottom:.8rem}footer nav a{color:#fff;font-weight:600}
 @media(max-width:720px){.hero2{padding:1.2rem;border-radius:22px 22px 22px 60px}}
 .pw{position:relative;display:block}.pw input{padding-right:4.4rem}
-.pw .eye{position:absolute;right:.3rem;top:50%;transform:translateY(-50%);background:none;color:var(--ink);padding:.3rem .6rem;font-size:.8rem;text-decoration:underline}
+.pw .eye{position:absolute;right:.3rem;top:50%;transform:translateY(-50%);background:none;color:var(--lnk);padding:.3rem .6rem;font-size:.8rem;text-decoration:underline}
 .done{background:#fff;border-radius:20px;border-bottom:6px solid var(--brass);padding:2rem 1.5rem;text-align:center;max-width:560px;margin:1rem auto}
-.done h2{color:var(--ink)}.tick{width:3.6rem;height:3.6rem;line-height:3.6rem;margin:0 auto 1rem;border-radius:50%;background:var(--mint);color:var(--ink);font-size:2rem}
+.done h2{color:var(--lnk)}.tick{width:3.6rem;height:3.6rem;line-height:3.6rem;margin:0 auto 1rem;border-radius:50%;background:var(--mint);color:var(--ink);font-size:2rem}
 form a{font-weight:600;font-size:.9rem}
 .admbar{background:linear-gradient(100deg,var(--plum),var(--ink));color:#fff;border-radius:20px;padding:1.2rem 1.5rem;margin-bottom:1rem}.admbar h2,.admbar p{margin:0}.admbar p{opacity:.8;font-size:.9rem}
 header b a{color:#fff;text-decoration:none}
@@ -88,12 +90,23 @@ header b a{color:#fff;text-decoration:none}
 @media(max-width:720px){.slider{max-width:300px;border-radius:150px 150px 20px 20px}}
 header b::before{content:none}
 header b a{display:flex;align-items:center;gap:.7rem}header b a span{font-size:1.05rem}
-.lg{height:44px;width:auto;background:#fff;border-radius:10px;padding:4px 10px}
-.lgf{display:block;height:52px;width:auto;margin:0 auto 1rem}
+.lg{height:56px;width:auto}
+.lgf{display:block;height:64px;width:auto;margin:0 auto 1rem}
+html{background:var(--bg)}
+:root{--lnk:#0F4C4A;--card:#fff;--thbg:#efece5}
+html[data-theme=dark]{--bg:#000;--tx:#F3F3F0;--mut:#A8A8A2;--line:#2b2b2b;--lnk:#66D9CF;--card:#111;--thbg:#1d1d1d;color-scheme:dark}
+.box,.strip div,.msg,.done,table,input,select{background:var(--card)}
+.f .c1{background:var(--ink)}.f .c2{background:var(--plum)}.f .c3{background:var(--coral)}
+th{background:var(--thbg)}input,select{color:var(--tx)}.rw>div{color:#1c1c1a}
+html[data-theme=dark] .owed{color:#ff7b6b}html[data-theme=dark] .ok{color:#5fd08a}html[data-theme=dark] .hero2 em{color:#ff7a5c}
+.hr{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.tg{width:38px;height:38px;padding:0;border-radius:50%;background:transparent;border:1px solid #555;color:#fff;display:inline-flex;align-items:center;justify-content:center}.tg:hover{border-color:var(--brass)}
+.tg svg{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round}
+.tg .mo{display:none}html:not([data-theme=dark]) .tg .su{display:none}html:not([data-theme=dark]) .tg .mo{display:inline}
 </style>
 </head>
 <body>
-<header><b><a href="./" id="logo" onclick="return clearAndReload(event)" title="Refresh"><img class="lg" src="images/logo.png" alt="Casa Vanté"><span>Referral Network</span></a></b><nav id="nav"></nav></header>
+<header><b><a href="./" id="logo" onclick="return clearAndReload(event)" title="Refresh"><img class="lg" src="images/logo.png" alt="Casa Vanté"><span>Referral Network</span></a></b><div class="hr"><nav id="nav"></nav><button class="tg" id="theme" type="button" onclick="toggleTheme()" aria-label="Switch between dark and light mode" title="Switch light / dark"><svg class="su" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg><svg class="mo" viewBox="0 0 24 24"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button></div></header>
 <main id="app"></main>
 <footer><img class="lgf" src="images/logo.png" alt="Casa Vanté"><nav><a href="#home">Home</a><a href="#how">How It Works</a><a href="#join">Become a Partner</a><a href="#login">Partner Login</a></nav>Casa Vanté · Awka, Nigeria · Commission and reward terms apply to all partners.</footer>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
@@ -234,7 +247,7 @@ async admin(){
   app.innerHTML=`<div class="admbar"><h2>Admin Dashboard</h2><p>Signed in as ${e(user.email)}</p></div>
   <div class="grid"><div class="box stat"><b>${ps.length}</b><span>Partners</span></div><div class="box stat"><b>${rs.length}</b><span>Referrals</span></div><div class="box stat"><b>${inprog}</b><span>In progress</span></div><div class="box stat"><b>${money(owedAll)}</b><span>Commission to pay</span></div></div>
   <h3>Admin team (up to 3)</h3><p><small>Admins can open this dashboard and get an email whenever a new partner registers.</small></p>
-  <div class="tw"><table>${(ad||[]).map(a=>`<tr><td>${e(a.email)}</td><td>${a.email===(user.email||'').toLowerCase()?'You':`<button class="sm alt" data-e="${e(a.email)}" onclick="deladm(this.dataset.e)">Remove</button>`}</td></tr>`).join('')}</table></div>
+  <div class="tw"><table>${(ad||[]).map(a=>`<tr><td>${e(a.email)}</td><td>${a.email===(user.email||'').toLowerCase()?'You':`<button class="sm" data-e="${e(a.email)}" onclick="repladm(this.dataset.e)">Replace</button> <button class="sm alt" data-e="${e(a.email)}" onclick="deladm(this.dataset.e)">Remove</button>`}</td></tr>`).join('')}</table></div>
   <form onsubmit="return addadm(event)" style="max-width:none;grid-template-columns:1fr auto;margin-top:.8rem"><input id="ae" type="email" placeholder="New admin email" required><button>Add admin</button></form>
   <h3 style="margin-top:2rem">Announcement to all partners</h3><form onsubmit="return ann(event)" style="max-width:none;grid-template-columns:1fr auto"><input id="an" value="${e(AN)}" placeholder="For example: Double rewards on FIXERZ referrals this month"><button>Post</button></form><p><small>Leave it empty and press Post to remove the banner.</small></p>
   <label style="display:flex;gap:.5rem;align-items:center;font-weight:400;margin-top:1.5rem"><input type="checkbox" style="width:auto" ${UNPAID?'checked':''} onchange="UNPAID=this.checked;V.admin()">Show only unpaid balances</label><h3>Partners</h3><div class="tw"><table><tr><th>Partner</th><th>Status / code</th><th>Successful</th><th>Earned</th><th>Paid</th><th>Balance</th><th></th></tr>${ps.map(row).join('')}</table></div>
@@ -258,12 +271,25 @@ function slider(){const s=$('#sl');if(!s)return;const im=[...s.querySelectorAll(
   const go=n=>{k=(n+im.length)%im.length;im.forEach((x,i)=>x.classList.toggle('on',i===k));dt.forEach((x,i)=>x.classList.toggle('on',i===k))};
   dt.forEach((d,i)=>d.onclick=()=>go(i));clearInterval(window._sl);
   if(!matchMedia('(prefers-reduced-motion:reduce)').matches)window._sl=setInterval(()=>$('#sl')?go(k+1):clearInterval(window._sl),4000)}
+function toggleTheme(){const d=document.documentElement,n=d.dataset.theme==='dark'?'light':'dark';d.dataset.theme=n;try{localStorage.setItem('cvtheme',n)}catch(e){}}
+function fitLogo(i){if(i.dataset.done||!i.naturalWidth)return;i.dataset.done=1;try{
+  const c=document.createElement('canvas'),w=c.width=i.naturalWidth,h=c.height=i.naturalHeight,x=c.getContext('2d');x.drawImage(i,0,0);
+  const im=x.getImageData(0,0,w,h),d=im.data,L=(r,g,b)=>.299*r+.587*g+.114*b,S=(r,g,b)=>Math.max(r,g,b)-Math.min(r,g,b);
+  const solid=d[3]>200&&L(d[0],d[1],d[2])>200;let dk=0,lt=0;
+  for(let p=0;p<d.length;p+=4){if(d[p+3]<128||S(d[p],d[p+1],d[p+2])>50)continue;L(d[p],d[p+1],d[p+2])<110?dk++:lt++}
+  if(!solid&&dk<=lt)return;
+  for(let p=0;p<d.length;p+=4){const r=d[p],g=d[p+1],b=d[p+2],a=d[p+3];if(!a)continue;const l=L(r,g,b);
+    if(S(r,g,b)<=50){d[p]=d[p+1]=d[p+2]=255;d[p+3]=Math.round(a*(1-l/255))}else if(solid&&l>235)d[p+3]=Math.round(a*(1-(l-235)/20))}
+  x.putImageData(im,0,0);i.src=c.toDataURL('image/png')}catch(e){}}
+document.querySelectorAll('.lg,.lgf').forEach(i=>i.complete?fitLogo(i):i.addEventListener('load',()=>fitLogo(i)));
 const cp=t=>navigator.clipboard.writeText(t).then(()=>alert('Copied'));
 async function sp(id,status){await db.from('partners').update(status==='approved'?{status,reject_reason:null}:{status}).eq('id',id);V.admin()}
 async function rej(id){const r=prompt('Reason for rejecting this partner (the partner will see it):');if(r===null)return;await db.from('partners').update({status:'rejected',reject_reason:r}).eq('id',id);V.admin()}
 async function ann(ev){ev.preventDefault();await db.from('announcement').update({message:$('#an').value}).eq('id',1);V.admin();return false}
 async function addadm(ev){ev.preventDefault();const{error}=await db.from('admins').insert({email:$('#ae').value.trim().toLowerCase()});
   if(error)alert(/at most/.test(error.message)?'You can have at most 3 admins. Remove one first.':error.message);V.admin();return false}
+async function repladm(old){const n=prompt('Enter the email of the new admin who will replace '+old+':');if(!n)return;
+  const{error}=await db.rpc('replace_admin',{old_email:old,new_email:n.trim().toLowerCase()});if(error)alert(error.message);V.admin()}
 async function deladm(em){if(!confirm('Remove '+em+' as an admin?'))return;const{error}=await db.from('admins').delete().eq('email',em);if(error)alert(error.message);V.admin()}
 async function rwd(id){const reward=prompt('Reward or award given (for example: Partner of the Month, Birthday gift, VIP reward)');if(!reward)return;await db.from('partner_rewards').insert({partner_id:id,reward});V.admin()}
 async function sv(id){const r=REFS.find(x=>x.id==id),status=$('#s'+id).value,fee=+$('#f'+id).value||0,paid=$('#p'+id).checked;
