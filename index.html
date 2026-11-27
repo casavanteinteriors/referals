@@ -105,6 +105,14 @@ html[data-theme=dark] .owed{color:#ff7b6b}html[data-theme=dark] .ok{color:#5fd08
 .tg .mo{display:none}html:not([data-theme=dark]) .tg .su{display:none}html:not([data-theme=dark]) .tg .mo{display:inline}
 header{position:sticky;top:0;z-index:50}
 @media(max-width:720px){header{padding:.5rem .8rem}.lg{height:44px}header b a span{display:none}nav{gap:.3rem .9rem;font-size:.9rem}}
+header{flex-wrap:nowrap;gap:.6rem 1rem}header b{flex:none}
+.hr{flex:1 1 0;min-width:0;flex-wrap:nowrap;justify-content:flex-end;gap:.7rem}
+#nav{position:relative;flex:0 1 auto;min-width:0;flex-wrap:nowrap;gap:1.5rem;overflow-x:auto;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch;scrollbar-width:thin;scrollbar-color:#F2A93B #2a2a2a;padding:.25rem .1rem .5rem;cursor:grab}
+#nav::-webkit-scrollbar{height:6px}#nav::-webkit-scrollbar-track{background:#2a2a2a;border-radius:3px}#nav::-webkit-scrollbar-thumb{background:#F2A93B;border-radius:3px}
+#nav a{flex:none;white-space:nowrap;font-weight:700;font-size:1.05rem;letter-spacing:.01em;padding:.3rem .1rem;border-bottom:3px solid transparent;-webkit-user-select:none;user-select:none}
+#nav a.on,#nav a:hover{border-color:var(--brass)}
+.tg{flex:none}
+@media(max-width:720px){header{padding:.45rem .7rem}#nav{gap:1.2rem}#nav a{font-size:1rem}}
 </style>
 </head>
 <body>
@@ -144,7 +152,7 @@ function route(){
   $('#nav').innerHTML=(isAdmin?[['home','Home'],['how','How It Works'],['admin','Admin Dashboard']]:user?[['home','Home'],['how','How It Works'],['dashboard','My Dashboard']]:[['home','Home'],['how','How It Works'],['join','Become a Partner'],['login','Partner Login']])
     .map(([k,t])=>`<a href="#${k}" class="${k===v?'on':''}">${t}</a>`).join('')
     +(user?'<a href="#" onclick="out();return false">Sign out</a>':'');
-  window.scrollTo(0,0);(V[v]||V.home)();
+  window.scrollTo(0,0);{const n=$('#nav'),a=n.querySelector('.on');if(a)n.scrollLeft=a.offsetLeft-n.clientWidth/2+a.offsetWidth/2}(V[v]||V.home)();
 }
 async function out(){await db.auth.signOut();location.hash='home';boot()}
 addEventListener('hashchange',route);
@@ -284,6 +292,11 @@ function fitLogo(i){if(i.dataset.done||!i.naturalWidth)return;i.dataset.done=1;t
     if(S(r,g,b)<=50){d[p]=d[p+1]=d[p+2]=255;d[p+3]=Math.round(a*(1-l/255))}else if(solid&&l>235)d[p+3]=Math.round(a*(1-(l-235)/20))}
   x.putImageData(im,0,0);i.src=c.toDataURL('image/png')}catch(e){}}
 document.querySelectorAll('.lg,.lgf').forEach(i=>i.complete?fitLogo(i):i.addEventListener('load',()=>fitLogo(i)));
+(()=>{const n=$('#nav');let d=0,m=0,sx=0,sl=0;
+  n.addEventListener('pointerdown',ev=>{if(ev.pointerType!=='mouse')return;d=1;m=0;sx=ev.clientX;sl=n.scrollLeft});
+  addEventListener('pointermove',ev=>{if(!d)return;const dx=ev.clientX-sx;if(Math.abs(dx)>4)m=1;n.scrollLeft=sl-dx});
+  addEventListener('pointerup',()=>{d=0});
+  n.addEventListener('click',ev=>{if(m){ev.preventDefault();m=0}},true)})();
 const cp=t=>navigator.clipboard.writeText(t).then(()=>alert('Copied'));
 async function sp(id,status){await db.from('partners').update(status==='approved'?{status,reject_reason:null}:{status}).eq('id',id);V.admin()}
 async function rej(id){const r=prompt('Reason for rejecting this partner (the partner will see it):');if(r===null)return;await db.from('partners').update({status:'rejected',reject_reason:r}).eq('id',id);V.admin()}
